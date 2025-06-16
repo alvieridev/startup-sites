@@ -43,12 +43,9 @@ export default function SavedSitesProvider({children}:{children: ReactNode}){
     }
     const removeSite = (site: SavedSiteType) => {
         // setSavedSites((prev) => prev.filter((not) => not.url !== site.url))
-        chrome.storage.local.get(["sites"]).then((result) => {
-            const updatedSites = result.sites.filter((not: SavedSiteType) => not.url !== site.url);
-            chrome.storage.local.set({ sites: updatedSites }).then(() => {
-                getAndSetSavedSitesFromStorage();
-            });
-        });
+         const updatedSites = savedSites.filter(prevSite => prevSite.url !== site.url);
+        setSavedSites(updatedSites);
+        chrome.storage.local.set({ sites: updatedSites });
     }
 
     const value: SavedSitesProviderType = {
