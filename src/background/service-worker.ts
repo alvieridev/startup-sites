@@ -1,7 +1,7 @@
 import type { SavedSiteType } from "../context/savedSites";
 
 // Listen for browser startup event to restore saved sites
-chrome.runtime.onStartup.addListener(async () => {
+chrome.windows.onCreated.addListener(async () => {
   console.log('Browser started, restoring saved sites...');
 
   try {
