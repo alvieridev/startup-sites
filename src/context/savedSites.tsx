@@ -5,10 +5,11 @@ export type SavedSitesProviderType = {
     addNewSite: (site: SavedSiteType) => void;
     removeSite: (site: SavedSiteType) => void;
 }
-type SavedSiteType =   {  name:string, url:string }
-const SavedSitesContext = createContext<SavedSitesProviderType | []>([]);
+export type SavedSiteType =   {  name:string, url:string }
 
-export function SavedSitesProvider({children}:{children: ReactNode}){
+export const SavedSitesContext = createContext<SavedSitesProviderType | null>(null);
+
+export default function SavedSitesProvider({children}:{children: ReactNode}){
 
     const [savedSites, setSavedSites] = useState<SavedSiteType[] | []>([])
     useEffect(() => {

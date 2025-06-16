@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "version": "1.0.0",
-    "name": "Alvieri",
+    "name": "StartUp Sites",
       "permissions": ["scripting", "tabs"],
     "host_permissions": [
         "http://*/*",

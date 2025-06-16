@@ -1,71 +1,65 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useContext, useState } from 'react'
+
 import './App.css'
+import { SavedSitesContext } from './context/savedSites';
+import Header from './components/ui/Header';
+import TabNavigation from './components/ui/TabNavigation';
+import SavedSitesView from './components/SavedSitesView';
+import Settings from './components/Settings';
 
 function App() {
     const [activeTab, setActiveTab] = useState<'sites' | 'settings'>('sites');
-    const [newSite, setNewSite] = useState({ name: '', url: '' });
-  const count = 0
+    const context = useContext(SavedSitesContext)
 
-  useEffect(() => {
-    // In real extension, this would be:
-    // chrome.storage.local.get(['sites', 'isEnabled'], (result) => {
-    //   setSites(result.sites || []);
-    //   setIsEnabled(result.isEnabled !== false);
-    // });
+
+     
+     if (context === null) {
+       throw new Error(
+         "NotificationContainer must be used within a NotificationProvider"
+        );
+      }
+
+        const [isEnabled, setIsEnabled] = useState(true);
+
+          
+   const toggleEnabled = () => {
+    setIsEnabled(!isEnabled);
     
-    // Mock data for demo
-    setSites([
-      { id: '1', name: 'Company Portal', url: 'https://portal.company.com' },
-      { id: '2', name: 'Finance System', url: 'https://finance.company.com' }
-    ]);
-  }, []);
-  
-  const onClick = async () => {
-    // setCount((count) => count + 1)
-       try {
-        const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
-        
-        if (tab) {
-            chrome.scripting.executeScript({
-                target: {tabId: tab.id!},
-                func: () => {
-                    // document.body
-                    alert("Hello From Alvieri");
-                }
-            });
-        } else {
-            console.error("No active tab found");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
+    // In real extension:
+    // chrome.storage.local.set({ isEnabled: !isEnabled });
+  };
 
-  }
 
   return (
     <>
-      <div className='border border-red-500'>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="w-80 rounded-md md:max-h-full bg-white  ">
+      {/* Header */}
+     
+      <Header />
+
+      <div className="px-1">
+        {/* Status Banner */}
+        <div className={`px-4 py-2 text-sm ${isEnabled ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+          <div className="flex items-center gap-2">
+        <div className={`w-2 h-2 rounded-full ${isEnabled ? 'bg-green-500' : 'bg-red-500'}`}></div>
+        Auto-open is {isEnabled ? 'enabled' : 'disabled'}
+            </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+
+        {/* Content */}
+        <div className="p-4">
+          {activeTab === 'sites' && (
+            <SavedSitesView />
+          )}
+          {activeTab === 'settings' && (
+           <Settings isEnabled={isEnabled} toggleEnabled={toggleEnabled} />
+          )}
+        </div>
       </div>
-      <h1>StartUp Sites</h1>
-      <div className="card">
-        <button onClick={onClick}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </div>
     </>
   )
 }
