@@ -19,7 +19,7 @@ export default function SavedSitesView() {
        const openAllSites = () => {
     sites.forEach(site => {
       // In real extension:
-      // chrome.tabs.create({ url: site.url });
+      chrome.tabs.create({ url: site.url });
       console.log(`Opening: ${site.url}`);
     });
   };

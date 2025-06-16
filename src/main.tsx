@@ -9,5 +9,5 @@ createRoot(document.getElementById('root')!).render(
     <SavedSitesProvider>
       <App />
     </SavedSitesProvider>
-  </StrictMode>,
+  </StrictMode>
 )
