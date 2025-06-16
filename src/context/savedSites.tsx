@@ -2,10 +2,10 @@ import { createContext, useEffect, useState, type ReactNode } from "react";
 
 export type SavedSitesProviderType = {
     sites: SavedSiteType[] | [],
-    addNewSite: (site: SavedSiteType) => void;
+    addNewSite: (site: Omit<SavedSiteType, "id">) => void;
     removeSite: (site: SavedSiteType) => void;
 }
-export type SavedSiteType =   {  name:string, url:string }
+export type SavedSiteType =   {id: string,  name:string, url:string }
 
 export const SavedSitesContext = createContext<SavedSitesProviderType | null>(null);
 
@@ -29,9 +29,15 @@ export default function SavedSitesProvider({children}:{children: ReactNode}){
     }, [])
 
     
-    const addNewSite = (site: SavedSiteType) => {
+    const addNewSite = (site: Omit<SavedSiteType, "id">) => {
         // const {name, url} = site
-        const updatedSites = [...savedSites, site];
+
+         const newSite: SavedSiteType = {
+            id: Date.now().toString(),
+            name: site.name.trim(),
+            url: site.url.trim()
+        };
+        const updatedSites = [...savedSites, newSite];
 
        chrome.storage.local.set({ sites : updatedSites }).then(() => {
            console.log("Value is set");
@@ -42,8 +48,7 @@ export default function SavedSitesProvider({children}:{children: ReactNode}){
         
     }
     const removeSite = (site: SavedSiteType) => {
-        // setSavedSites((prev) => prev.filter((not) => not.url !== site.url))
-         const updatedSites = savedSites.filter(prevSite => prevSite.url !== site.url);
+         const updatedSites = savedSites.filter(prevSite => prevSite.id !== site.id);
         setSavedSites(updatedSites);
         chrome.storage.local.set({ sites: updatedSites });
     }
