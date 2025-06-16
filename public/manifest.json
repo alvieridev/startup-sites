@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "version": "1.0.0",
+    "name": "Alvieri",
+      "permissions": ["scripting"],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
+    "icons": {
+        "32": "icon.png"
+    },
+    "description": "Test Extension description",
+    "action": {
+        "default_popup": "index.html"
+    }
+}
