@@ -25,14 +25,14 @@ function App() {
    const toggleEnabled = () => {
     setIsEnabled(!isEnabled);
     
-    // In real extension:
+    // TODO: Save the new state to storage AS BELOW
     // chrome.storage.local.set({ isEnabled: !isEnabled });
   };
 
 
   return (
     <>
-      <div className="w-80 rounded-md md:max-h-full bg-white  ">
+      <div className="w-80 min-h-screen md:max-h-full bg-white mx-auto ">
       {/* Header */}
      
       <Header />

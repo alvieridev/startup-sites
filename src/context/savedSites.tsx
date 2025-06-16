@@ -12,22 +12,19 @@ export const SavedSitesContext = createContext<SavedSitesProviderType | null>(nu
 export default function SavedSitesProvider({children}:{children: ReactNode}){
 
     const [savedSites, setSavedSites] = useState<SavedSiteType[] | []>([])
-    
-    useEffect(()  => {
-    //     setSavedSites([
-    //   {  name: 'Company Portal', url: 'https://portal.company.com' },
-    //   {  name: 'Finance System', url: 'https://finance.company.com' }
-    //     ]);
+
      async function getAndSetSavedSitesFromStorage() { // Yeah.. this function does two things, let it be unless you have a better implementation 
+
+        //AS PER MY OBSERVATION, THIS WILL ONLY WORK IN AN EXTENSION, OTHERWISE, IT THROWS AN ERROR
         chrome.storage.local.get(["sites"]).then((result) => {
-         console.log("Value is " + result.sites);
+        //  console.log("Value is " + result.sites);
          console.log("FRESH VALUES: ", result.sites)   
          setSavedSites(result.sites || [])
          });
 
         
-        //  return sitesFromStorage
         }
+    useEffect(()  => {        
         getAndSetSavedSitesFromStorage()
     }, [])
 
@@ -38,16 +35,20 @@ export default function SavedSitesProvider({children}:{children: ReactNode}){
 
        chrome.storage.local.set({ sites : updatedSites }).then(() => {
            console.log("Value is set");
-           setSavedSites((prev) => [...prev, site])
+           getAndSetSavedSitesFromStorage()
         });
 
-        chrome.storage.local.get(["sites"]).then((result) => {
-            console.log("Value is inside add new function" + result.sites);
-        });
+
         
     }
     const removeSite = (site: SavedSiteType) => {
-        setSavedSites((prev) => prev.filter((not) => not.url !== site.url))
+        // setSavedSites((prev) => prev.filter((not) => not.url !== site.url))
+        chrome.storage.local.get(["sites"]).then((result) => {
+            const updatedSites = result.sites.filter((not: SavedSiteType) => not.url !== site.url);
+            chrome.storage.local.set({ sites: updatedSites }).then(() => {
+                getAndSetSavedSitesFromStorage();
+            });
+        });
     }
 
     const value: SavedSitesProviderType = {
