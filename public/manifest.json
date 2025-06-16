@@ -10,7 +10,7 @@
     "icons": {
         "32": "icon.png"
     },
-    "description": "Test Extension description",
+    "description":  "Automatically open your favorite sites when browser starts",
     "action": {
         "default_popup": "index.html"
     }
