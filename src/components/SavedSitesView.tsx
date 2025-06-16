@@ -70,7 +70,7 @@ export default function SavedSitesView() {
                         value={newSite.name}
                         onChange={(e) => setNewSite(prev => ({ ...prev, name: e.target.value }))}
                         placeholder="e.g., Company Portal"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 text-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -81,8 +81,8 @@ export default function SavedSitesView() {
                         type="url"
                         value={newSite.url}
                         onChange={(e) => setNewSite(prev => ({ ...prev, url: e.target.value }))}
-                        placeholder="https://example.com"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="https://alvieri.dev"
+                        className="w-full px-3 py-2 border border-gray-300 text-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
                     <div className="flex gap-2">
