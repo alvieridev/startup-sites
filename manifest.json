@@ -10,6 +10,9 @@
     "icons": {
         "32": "icon.png"
     },
+      "background": {
+    "service_worker": "src/background/service-worker.ts"
+  },
     "description":  "Automatically open your favorite sites when browser starts",
     "action": {
         "default_popup": "index.html"
