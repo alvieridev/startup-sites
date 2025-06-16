@@ -41,7 +41,7 @@ export default function SavedSitesProvider({children}:{children: ReactNode}){
 
        chrome.storage.local.set({ sites : updatedSites }).then(() => {
            console.log("Value is set");
-           getAndSetSavedSitesFromStorage()
+           setSavedSites(updatedSites)
         });
 
 

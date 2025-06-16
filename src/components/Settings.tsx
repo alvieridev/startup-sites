@@ -32,7 +32,7 @@ export default function Settings({isEnabled, toggleEnabled}: {isEnabled:boolean,
                 <h4 className="font-medium text-gray-900">How it works:</h4>
                 <ul className="space-y-1 ml-4">
                   <li>• Sites are saved locally on this browser</li>
-                  <li>• When you start Chrome, saved sites open automatically</li>
+                  <li>• When you start up your browser, saved sites open automatically</li>
                   <li>• You can disable auto-open anytime</li>
                   <li>• Use "Open All Sites Now" for manual opening</li>
                 </ul>

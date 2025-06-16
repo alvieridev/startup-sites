@@ -4,5 +4,5 @@
 - Chrome Runtime API: [Runtime](https://developer.chrome.com/docs/extensions/reference/api/runtime)
 - Chrome Tabs API: [Runtime](https://developer.chrome.com/docs/extensions/reference/api/tabs)
 
-[] - give the extension a border radius 
- 
+[x] - give the extension a border radius 
+[] -Get the url's favicon and use it for displaying the cards 

@@ -1,6 +1,6 @@
 import  { useContext, useState } from 'react'
 import { SavedSitesContext } from '../context/savedSites';
-import { Check, Globe, Plus, Power, X } from 'lucide-react';
+import { ArrowUpNarrowWideIcon, Check, Globe, Plus, Power, X } from 'lucide-react';
 
 export default function SavedSitesView() {
       const [newSite, setNewSite] = useState({ name: '', url: '' })
@@ -17,12 +17,31 @@ export default function SavedSitesView() {
       const {sites, addNewSite, removeSite} = context
 
        const openAllSites = () => {
-    sites.forEach(site => {
-      // In real extension:
-      chrome.tabs.create({ url: site.url });
-      console.log(`Opening: ${site.url}`);
-    });
+      sites.forEach(site => {
+        // In real extension:
+        chrome.tabs.create({ url: site.url });
+        console.log(`Opening: ${site.url}`);
+      });
   };
+
+
+
+  async function handleAddCurrentTab() {
+    const queryOptions = { active: true, lastFocusedWindow: true };
+
+    const [tab] = await chrome.tabs.query(queryOptions);
+   console.log("tab info: ", tab)
+    if (!tab || !tab.url) {
+      console.error('No active tab found or it has no URL');
+      return;
+    }
+    const newSite = {
+      name: tab.title || 'New Site',
+      url: tab.url
+    };
+    addNewSite(newSite)
+    return tab;
+  }
 
     
   return (
@@ -114,6 +133,14 @@ export default function SavedSitesView() {
                   Add New Site
                 </button>
               )}
+
+               <button
+                  onClick={handleAddCurrentTab}
+                  className="w-full flex items-center justify-center gap-2 p-3 border-gray-300 rounded-lg bg-gray-600 text-white transition-colors"
+                >
+                  <ArrowUpNarrowWideIcon className="w-4 h-4" />
+                  Add Current Website
+                </button>
               {/* Quick Actions */}
               {sites.length > 0 && (
                 <div className="pt-2 border-t">
