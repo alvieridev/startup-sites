@@ -1,19 +1,22 @@
 {
     "manifest_version": 3,
     "version": "1.0.0",
-    "name": "StartUp Sites",
+    "name": "WorkSite Launcher",
       "permissions": ["tabs", "storage", "activeTab", "windows"],
     "host_permissions": [
         "http://*/*",
         "https://*/*"
     ],
     "icons": {
-        "32": "icon.png"
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
     },
       "background": {
     "service_worker": "src/background/service-worker.ts"
   },
-    "description":  "Automatically open your favorite sites when browser starts",
+    "description":  "Automatically open your favorite/saved sites when browser starts",
     "action": {
         "default_popup": "index.html"
     }
