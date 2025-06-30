@@ -1,6 +1,6 @@
 import  { useContext, useState } from 'react'
 import { SavedSitesContext } from '../context/savedSites';
-import { ArrowUpNarrowWideIcon, Check, Globe, Plus, Power, X } from 'lucide-react';
+import { ArrowUpNarrowWideIcon, Check, Globe, MoveUpRight, Plus, Power, X } from 'lucide-react';
 
 export default function SavedSitesView() {
       const [newSite, setNewSite] = useState({ name: '', url: '' })
@@ -16,13 +16,18 @@ export default function SavedSitesView() {
       }
       const {sites, addNewSite, removeSite} = context
 
-       const openAllSites = () => {
-      sites.forEach(site => {
-        // In real extension:
-        chrome.tabs.create({ url: site.url });
-        console.log(`Opening: ${site.url}`);
-      });
-  };
+      const openAllSites = () => {
+    sites.forEach(site => {
+      // In real extension:
+      chrome.tabs.create({ url: site.url });
+      console.log(`Opening: ${site.url}`);
+    });
+      };
+
+
+      const openSite = (url:string)=> {
+        chrome.tabs.create({url})
+      }
 
 
 
@@ -64,6 +69,14 @@ export default function SavedSitesView() {
                         <p className="font-medium text-gray-900 truncate">{site.name}</p>
                         <p className="text-sm text-gray-500 truncate">{site.url}</p>
                       </div>
+                  
+                      <button
+                        onClick={() => openSite(site.url)}
+                        className="p-1 text-gray-400 hover:text-blue-600 hover:bg-red-50 rounded transition-colors"
+                        title="Remove site"
+                      >
+                         <MoveUpRight className="w-4 h-4"/>
+                      </button>
                       <button
                         onClick={() => removeSite(site)}
                         className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
