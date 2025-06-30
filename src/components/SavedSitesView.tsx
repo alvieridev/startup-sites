@@ -72,8 +72,8 @@ export default function SavedSitesView() {
                   
                       <button
                         onClick={() => openSite(site.url)}
-                        className="p-1 text-gray-400 hover:text-blue-600 hover:bg-red-50 rounded transition-colors"
-                        title="Remove site"
+                        className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                        title="Open site"
                       >
                          <MoveUpRight className="w-4 h-4"/>
                       </button>

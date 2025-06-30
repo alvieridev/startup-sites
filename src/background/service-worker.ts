@@ -6,6 +6,9 @@ chrome.windows.onCreated.addListener(async () => {
 
   try {
     // Get saved sites from storage
+    const isAutoOpenEnabled = await chrome.storage.local.get(['isAutoOpenEnabled']);
+    console.log("is auto open enabled: ", isAutoOpenEnabled.isAutoOpenEnabled)
+    if(!isAutoOpenEnabled.isAutoOpenEnabled) return
     const result = await chrome.storage.local.get(['sites']);
     const savedSites: SavedSiteType[] | [] = result.sites || [];
 
@@ -22,7 +25,10 @@ chrome.windows.onCreated.addListener(async () => {
   }
 });
 
-// Also handle extension startup (when extension is installed/enabled)
+// handle extension startup (when extension is installed/enabled)
 chrome.runtime.onInstalled.addListener(() => {
   console.log('Extension installed/enabled');
+  chrome.storage.local.set({ isAutoOpenEnabled: true }).then((res) => {
+    console.log("AUTO ENALBED STATUS object: ", res)
+  });
 });

@@ -19,15 +19,7 @@ function App() {
         );
       }
 
-        const [isEnabled, setIsEnabled] = useState(true);
-
-          
-   const toggleEnabled = () => {
-    setIsEnabled(!isEnabled);
-    
-    // TODO: Save the new state to storage AS BELOW
-    // chrome.storage.local.set({ isEnabled: !isEnabled });
-  };
+      const {isEnabled, toggleEnabled} = context
 
 
   return (

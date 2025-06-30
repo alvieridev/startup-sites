@@ -1,5 +1,5 @@
 
-export default function Settings({isEnabled, toggleEnabled}: {isEnabled:boolean, toggleEnabled: () => void}) {
+export default function Settings({isEnabled, toggleEnabled}: {isEnabled:boolean, toggleEnabled: (status: boolean) => void}) {
    
   return (
     <div className="space-y-4">
@@ -12,7 +12,9 @@ export default function Settings({isEnabled, toggleEnabled}: {isEnabled:boolean,
                 </div>
                 <button
           type="button"
-          onClick={toggleEnabled}
+          onClick={() => {
+            toggleEnabled(!isEnabled)
+          }}
           className={`
             relative inline-flex h-4 w-11 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
             ${isEnabled ? 'bg-blue-600' : 'bg-gray-200'}
